@@ -18,15 +18,20 @@ git add
 git commit -m "hhhhhh"
 git config --list
 1
-git push -u origin master
-git add -u
 git status -s
 git commit -m "hhhhh"
-git push origin master
 git commit -a
-git status
 git add -m "hhh"
 git commit -m "hhh"
 git remote add origin git@github.com:tom10110887/watchlist.git
 git commit -m "hh"
 git add .
+git commit -m "hhhh"
+git push -u origin master
+git pull
+git commit -m 'hhhh'
+git commit -m "hhhhhhhhhh"
+git push origin master
+git pull origin master --allow-unrelated-histories
+git status
+git add -u
