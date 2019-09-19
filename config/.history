@@ -12,17 +12,21 @@ pipenv install
 pipenv shell
 pipenv install flask
 git init
-git status
-git remote add origin git@github.com:tom10110887/watchlist.git
 git commit -m "I'm ready!"
 git pull origin master
 git add
-git add .
 git commit -m "hhhhhh"
 git config --list
-git status -s
-git commit -m "hhhhh"
 1
 git push -u origin master
-git push origin master
 git add -u
+git status -s
+git commit -m "hhhhh"
+git push origin master
+git commit -a
+git status
+git add -m "hhh"
+git commit -m "hhh"
+git remote add origin git@github.com:tom10110887/watchlist.git
+git commit -m "hh"
+git add .
