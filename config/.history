@@ -9,8 +9,6 @@ ssh-keygen
 cat ~/.ssh/id_rsa.pub
 pip install pipenv
 pipenv install
-pipenv shell
-pipenv install flask
 git init
 git commit -m "I'm ready!"
 git pull origin master
@@ -22,16 +20,31 @@ git status -s
 git commit -m "hhhhh"
 git commit -a
 git add -m "hhh"
-git commit -m "hhh"
 git remote add origin git@github.com:tom10110887/watchlist.git
 git commit -m "hh"
-git add .
 git commit -m "hhhh"
-git push -u origin master
-git pull
 git commit -m 'hhhh'
 git commit -m "hhhhhhhhhh"
-git push origin master
 git pull origin master --allow-unrelated-histories
-git status
 git add -u
+git commit -m "hhh"
+git push -u origin master
+git fetch
+git merge
+git config branch.master.remote origin
+git config branch.master.merge refs/heads/master
+git pull
+git commit -m "mmm"
+git add app.py
+git add .idea/
+git status
+git commit -m "try"
+git push origin master
+cd D:
+cd D
+pipenv install flask
+pipenv shell
+pipenv install python-dotenv
+touch .env .flaskenv
+flask run
+git add .
