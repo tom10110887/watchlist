@@ -1,9 +1,8 @@
-from flask import Flask
 from flask import url_for
+from flask import Flask, render_template
+
 app = Flask(__name__)
 
-@app.route('/')
-@app.route('/index')
 @app.route('/home')
 def hello():
     return u'欢迎来到我的 watchlist!'
@@ -25,3 +24,21 @@ def test_url_for():
     print(url_for('test_url_for'))
     print(url_for('test_url_for',num=2))
     return 'Test page'
+
+@app.route('/')
+def index():
+    return render_template('index.html', name=name, movies=movies)
+
+name = "Tom Wang"
+movies = [
+    {'title': '低俗小说', 'year': '1994'},
+    {'title': '这个男人来自地球', 'year': '2007'},
+    {'title': '现代爱情故事', 'year': '1991'},
+    {'title': '内布拉斯加', 'year': '2013'},
+    {'title': '无姓之人', 'year': '2009'},
+    {'title': '午夜巴黎', 'year': '2011'},
+    {'title': '她', 'year': '2013'},
+    {'title': '当哈利遇上莎莉', 'year': '1989'},
+    {'title': '云图', 'year': '2012'},
+    {'title': 'V字仇杀队', 'year': '2005'}
+]

@@ -43,8 +43,15 @@ git push origin master
 cd D:
 cd D
 pipenv install flask
-pipenv shell
 pipenv install python-dotenv
 touch .env .flaskenv
+git commit -m "Add minimal home page"
+git push
+mkdir templates
+cd cmder
+pipenv shell
+cd template
+cd templates
+cd D:\watchlist\cmder
 flask run
 git add .
