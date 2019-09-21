@@ -1,15 +1,40 @@
 from flask import url_for
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
+import os
+import sys
+import click
+
+WIN = sys.platform.startswith('win')
+if WIN: #如果是windows系统，使用三个斜杠
+    prefix = 'sqlite:///'
+else: #否则，使用四个斜杠
+    prefix = 'sqlite:////'
 
 app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(app.root_path, 'data.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #关闭对模型修改的监控
+db = SQLAlchemy(app)
+
+@app.cli.command()
+@click.option('--drop', is_flag=True, help='Create after drop.')
+def initdb(drop):
+    """Initialize the database"""
+    if drop:
+        db.drop_all()
+    db.create_all()
+    click.echo('Initialized database.')
 
 @app.route('/home')
 def hello():
     return u'欢迎来到我的 watchlist!'
 
-@app.route('/t')
-def totoro():
-    return '<h1>Hello Totoro!</h1><img src="https://n.sinaimg.cn/tech/transform/454/w231h223/20190917/94ce-ietnfsp9713302.gif">'
+@app.route('/')
+def index():
+    user = User.query.first()
+    movies = Movie.query.all()
+    return render_template('index.html', user=user, movies=movies)
 
 @app.route('/user/<name>')
 def user_page(name):
@@ -25,20 +50,38 @@ def test_url_for():
     print(url_for('test_url_for',num=2))
     return 'Test page'
 
-@app.route('/')
-def index():
-    return render_template('index.html', name=name, movies=movies)
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20))
 
-name = "Tom Wang"
-movies = [
-    {'title': '低俗小说', 'year': '1994'},
-    {'title': '这个男人来自地球', 'year': '2007'},
-    {'title': '现代爱情故事', 'year': '1991'},
-    {'title': '内布拉斯加', 'year': '2013'},
-    {'title': '无姓之人', 'year': '2009'},
-    {'title': '午夜巴黎', 'year': '2011'},
-    {'title': '她', 'year': '2013'},
-    {'title': '当哈利遇上莎莉', 'year': '1989'},
-    {'title': '云图', 'year': '2012'},
-    {'title': 'V字仇杀队', 'year': '2005'}
-]
+class Movie(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(60))
+    year = db.Column(db.String(4))
+
+@app.cli.command()
+def forge():
+    """Generate fake data"""
+    db.create_all()
+
+    name = 'Tom Wang'
+    movies = [
+        {'title': '低俗小说', 'year': '1994'},
+        {'title': '这个男人来自地球', 'year': '2007'},
+        {'title': '现代爱情故事', 'year': '1991'},
+        {'title': '内布拉斯加', 'year': '2013'},
+        {'title': '无姓之人', 'year': '2009'},
+        {'title': '午夜巴黎', 'year': '2011'},
+        {'title': '她', 'year': '2013'},
+        {'title': '当哈利遇上莎莉', 'year': '1989'},
+        {'title': '云图', 'year': '2012'},
+        {'title': 'V字仇杀队', 'year': '2005'}
+        ]
+
+    user = User(name=name)
+    db.session.add(user)
+    for m in movies:
+        movie = Movie(title=m['title'], year=m['year'])
+        db.session.add(movie)
+    db.session.commit()
+    click.echo('Done.')
