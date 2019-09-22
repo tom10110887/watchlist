@@ -59,11 +59,12 @@ git add.
 git commit -m "Add css file"
 pipenv install flask-sqlalchemy
 git commit -m "Fix center bug"
-git push
 python
 cd D:\watchlist\cmder
 flask initdb --drop
 flask forge
 flask shell
+git commit -m "Add database support with Flask-SQLAlchemy"
+git push
 flask run
 git add .

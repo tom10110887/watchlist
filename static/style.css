@@ -49,3 +49,42 @@ footer {
     margin: 0px auto;
     height: 150px;
     }
+
+/*导航栏*/
+nav ul {
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    background-color: #333;
+    }
+
+nav li {
+    float: left;
+    }
+
+nav li a {
+    display:block;
+    color:white;
+    text-align: center;
+    padding: 8px 12px;
+    text-decoration: none;
+    }
+
+nav li a:hover {
+    background-color: #111;
+    }
+
+.float-right {
+    float: right;
+    }
+
+.douban {
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    background: #1b9336;
+    border-redius: 15px;
+    padding: 3px 5px;
+    }

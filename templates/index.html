@@ -1,24 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ user.name }}'s Watchlist</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
-</head>
-<body>
-    <h2>
-        <img alt="pureboy" class="pureboy" src="{{ url_for('static', filename='images/net.png') }}">
-        {{ user.name }}'s Watchlist
-    </h2>
+{% extends 'base.html' %}
+
+{% block content %}
     <p>{{ movies|length }} Titles</p>
     <ul class="movie-list">
         {% for movie in movies %}
-        <li>{{ movie.title }} - {{ movie.year }}</li>
+        <li>{{ movie.title }} - {{ movie.year }}
+            <span class="float-right">
+                <a class="douban" href="https://movie.douban.com/subject_search?search_text={{ movie.title }}" target="_blank" title="查看豆瓣评分">豆瓣</a>
+            </span>
+        </li>
         {% endfor %}
     </ul>
     <img alt="snack" class="snack" src="{{ url_for('static', filename='images/snack.gif') }}">
-    <footer>
-        <small>&copy; 2018 <a href="http://www.zhihu.com">HelloFlask</a> </small>
-    </footer>
-</body>
-</html>
+{% endblock %}
