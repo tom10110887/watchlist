@@ -65,6 +65,7 @@ flask initdb --drop
 flask forge
 flask shell
 git commit -m "Add database support with Flask-SQLAlchemy"
+git commit -m "Add base template and error template"
 git push
 flask run
 git add .

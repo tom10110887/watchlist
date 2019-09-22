@@ -2,10 +2,19 @@
 
 {% block content %}
     <p>{{ movies|length }} Titles</p>
+    <form method="post">
+        电影 <input type="text" name="title" autocomplete="off" required>
+        年份 <input type="text" name="year" autocomplete="off" required>
+        <input class="btn" type="submit" name="submit" value="添加">
+    </form>
     <ul class="movie-list">
         {% for movie in movies %}
         <li>{{ movie.title }} - {{ movie.year }}
             <span class="float-right">
+                <form class="inline-form" method="post" action="{{ url_for('delete', movie_id=movie.id)}}">
+                    <input class="btn" type="submit" name="delete" value="移除" onclick="return confirm('确定要删除 {{ movie.title }} 吗？')">
+                </form>
+                <a class="btn" href="{{ url_for('edit', movie_id=movie.id) }}">编辑</a>
                 <a class="douban" href="https://movie.douban.com/subject_search?search_text={{ movie.title }}" target="_blank" title="查看豆瓣评分">豆瓣</a>
             </span>
         </li>
